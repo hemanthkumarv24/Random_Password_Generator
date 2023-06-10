@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 50px;
+      color: #333;
+      font-size: 60px;
+    }
+    h2 {
+        font-size: 33px;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 30px;
+      color: #666;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #password {
+      margin-top: 40px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #generate-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 30px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    
+    #password-length {
+      margin-top: 20px;
+      font-size: 30px;
+      padding: 8px;
+      border: 2px solid #a8a5a5;
+      border-radius: 4px;
+    }
+    
+    .password-input {
+      margin-top: 20px;
+      font-size: 28px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 400px;
+    }
+    
+    .password-strength {
+      margin-top: 20px;
+      font-size: 28px;
+      color: #666;
+    }
+    
+    .password-strength span {
+      font-weight: bold;
+    }
+    
+    .hints {
+      margin-top: 40px;
+      text-align: left;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+    }
+    
+    .hints ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+    
+    .hints li {
+      margin-bottom: 10px;
+      font-size: 25px;
+      color: #282424;
+    }
+    
+    .content-section {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 40px auto;
+      max-width: 90%;
+    }
+    
+    @media screen and (max-width: 600px) {
+      p {
+        font-size: 16px;
+      }
+    }
+    
+    /* Colorful Styles */
+    #generate-btn {
+      background-color: #0eef65;
+    }
+    
+    .password-strength .weak {
+      color: #FF4081;
+    }
+    
+    .password-strength .average {
+      color: #FFD700;
+    }
+    
+    .password-strength .strong {
+      color: #00CED1;
+    }
+    
+    .password-strength .very-strong {
+      color: #00FF7F;
+    }
+    
+    /*.colorful-bg {
+      background-image: linear-gradient(to right, #FF4081, #FFD700, #00CED1, #00FF7F);
+      background-size: 800% 100%;
+      animation: colorful-bg-animation 10s ease infinite;
+    }*/
+    #copy-btn {
+        margin-left: 10px;
+        padding: 10px 20px;
+        font-size: 25px;
+        cursor: pointer;
+        background-color: #584242;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 4px;
+      }
+      
+      #copy-btn:hover {
+        background-color: #e87171;
+      }
+    
+    .password-content {
+      text-align: left;
+      margin-top: 40px;
+      color: #130f0f;
+      max-width: 90%;
+    }
+    
+    .password-content h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      padding-left: 5%;
+    }
+    
+    .password-content p {
+      font-size: 25px;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+    
+    .password-content .advantages {
+      margin-bottom: 20px;
+      padding-left: 50px;
+    }
+    
+    .password-content .advantages ul {
+      list-style-type: disc;
+      margin-left: 50px;
+    }
+    
+    .password-content .advantages li {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+    
+    .password-content .disadvantages {
+      margin-bottom: 20px;
+      padding-left: 50px;
+    }
+    
+    .password-content .disadvantages ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    
+    .password-content .disadvantages li {
+      font-size: 16px;
+      color: #d32121;
+      margin-bottom: 10px;
+    }
+    
+    .password-content .cracking-methods {
+      margin-bottom: 20px;
+    }
+    
+    .password-content .cracking-methods p {
+      font-size: 25px;
+      color: #000000;
+    }
+    .password-content .cracking-methods ul {
+        padding-left: 130px;
+    }
+    .password-content .cracking-methods li {
+        font-size: 25px;
+        color: #000000;
+        margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body class="colorful-bg">
+  <div class="content-section">
+    <h1>Password Generator</h1>
+    <p>Strong passwords are essential for protecting your online accounts from unauthorized access. Using weak passwords puts your personal information at risk. Here's why creating and using strong passwords is important:</p>
+    <p>Use the options below to select the desired password length:</p>
+    <select id="password-length">
+      <option value="6">6</option>
+      <option value="8">8</option>
+      <option value="12">12</option>
+      <option value="16">16</option>
+      <option value="32">32</option>
+      <option value="64">64</option>
+      <option value="128">128</option>
+      <option value="256">256</option>
+    </select>
+    <button id="generate-btn">Generate Password</button>
+    <div id="password"></div>
+    <div id="password"></div>
+    <button id="copy-btn">Copy</button><br>
+    
+    <input type="password" class="password-input" id="user-password" placeholder="Enter your own password">
+    <div class="password-strength" id="password-strength"></div>
+    
+    <div class="hints">
+      <h2>Tips for Creating Strong Passwords</h2>
+      <ul>
+        <li>Make your passwords at least 8 characters long.</li>
+        <li>Include a mix of uppercase and lowercase letters, numbers, and special characters.</li>
+        <li>Avoid using obvious information such as your name, birthdate, or common words.</li>
+        <li>Use a unique password for each online account.</li>
+        <li>Consider using a password manager to generate and securely store your passwords.</li>
+      </ul>
+    </div>
+    <div class="password-content">
+      <h2>Advantages of Strong Passwords</h2>
+      <div class="advantages">
+        <p><strong>1. Enhanced Security:</strong> Strong passwords significantly reduce the risk of unauthorized access to your accounts and personal information.</p>
+        <p><strong>2. Protection Against Brute-Force Attacks:</strong> Strong passwords make it harder for hackers to guess or crack your passwords using automated methods.</p>
+        <p><strong>3. Prevent Identity Theft:</strong> Strong passwords help safeguard your identity and prevent others from impersonating you online.</p>
+        <p><strong>4. Safeguard Financial Information:</strong> Strong passwords protect your financial accounts and transactions, preventing potential financial losses.</p>
+      </div>
+      
+      <h2>Disadvantages of Weak Passwords</h2>
+      <div class="disadvantages">
+        <p><strong>1. Vulnerability to Hacking:</strong> Weak passwords are easy targets for hackers, who can quickly gain unauthorized access to your accounts.</p>
+        <p><strong>2. Increased Risk of Identity Theft:</strong> Weak passwords make it easier for cybercriminals to steal your personal information and assume your identity.</p>
+        <p><strong>3. Compromised Financial Security:</strong> Weak passwords expose your financial accounts, making it easier for attackers to conduct fraudulent transactions.</p>
+        <p><strong>4. Privacy Breaches:</strong> Weak passwords compromise your privacy and can lead to the exposure of sensitive and personal data.</p>
+      </div>
+      
+      <!-- <h2>How Passwords Can be Cracked</h2> -->
+      <div class="cracking-methods">
+        <h2>Attackers use various methods to crack passwords and gain unauthorized access to accounts:</h2>
+        <ul>
+          <li><strong>Brute-Force Attacks:</strong> Hackers systematically try all possible combinations of characters until they find the correct password.</li>
+          <li><strong>Dictionary Attacks:</strong> Attackers use pre-generated lists of common words and passwords to guess passwords.</li>
+          <li><strong>Phishing:</strong> Cybercriminals trick users into revealing their passwords through fake websites or emails.</li>
+          <li><strong>Social Engineering:</strong> Attackers manipulate individuals into disclosing their passwords through psychological manipulation.</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    // Generate a random password
+    function generatePassword(length) {
+      const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+      let password = '';
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+      }
+
+      return password;
+    }
+
+    // Check the strength of a password
+    function checkPasswordStrength(password) {
+      let strength = '';
+      if (password.length < 8) {
+        strength = 'weak';
+      } else if (password.length < 12) {
+        strength = 'average';
+      } else if (password.length < 16) {
+        strength = 'strong';
+      } else {
+        strength = 'very-strong';
+      }
+      return strength;
+    }
+
+    // Generate and display a new password when the button is clicked
+    document.getElementById('generate-btn').addEventListener('click', function() {
+      const passwordLength = document.getElementById('password-length').value;
+      const newPassword = generatePassword(passwordLength);
+      document.getElementById('password').textContent = newPassword;
+
+      // Check password strength for the generated password
+      const strength = checkPasswordStrength(newPassword);
+      const strengthText = {
+        weak: 'Weak',
+        average: 'Average',
+        strong: 'Strong',
+        'very-strong': 'Very Strong'
+      };
+      document.getElementById('password-strength').textContent = 'Password Strength: ';
+      const strengthSpan = document.createElement('span');
+      strengthSpan.textContent = strengthText[strength];
+      strengthSpan.classList.add(strength);
+      document.getElementById('password-strength').appendChild(strengthSpan);
+    });
+
+    // Check password strength for the user-input password
+    document.getElementById('user-password').addEventListener('input', function() {
+      const userPassword = this.value;
+      const strength = checkPasswordStrength(userPassword);
+      const strengthText = {
+        weak: 'Weak',
+        average: 'Average',
+        strong: 'Strong',
+        'very-strong': 'Very Strong'
+      };
+      document.getElementById('password-strength').textContent = 'Password Strength: ';
+      const strengthSpan = document.createElement('span');
+      strengthSpan.textContent = strengthText[strength];
+      strengthSpan.classList.add(strength);
+      document.getElementById('password-strength').appendChild(strengthSpan);
+    });
+    // Copy the generated password to the clipboard
+    document.getElementById('copy-btn').addEventListener('click', function() {
+        const password = document.getElementById('password').textContent;
+        const textarea = document.createElement('textarea');
+        textarea.value = password;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Password copied to clipboard!');
+    });
+  </script>
+</body>
+</html>
